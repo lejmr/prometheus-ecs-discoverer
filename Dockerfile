@@ -4,6 +4,8 @@ LABEL MAINTAINER="tim.and.trallnag+code@gmail.com"
 
 ARG PYPI_VERSION
 
-RUN until pip install --no-cache-dir "prometheus_ecs_discoverer==${PYPI_VERSION}"; do sleep 15; done
+ADD requirements.txt /
+RUN pip install -r /requirements.txt
+ADD prometheus_ecs_discoverer /opt/bitnami/python/lib/python3.8/site-packages/prometheus_ecs_discoverer/
 
 CMD [ "python", "-m", "prometheus_ecs_discoverer.run" ]
